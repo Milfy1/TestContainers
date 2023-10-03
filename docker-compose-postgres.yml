@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container-demo
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: mahmoudshahin.it@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+

@@ -1,0 +1,73 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    active: dev
+  application:
+    name: test-containers
+  kafka:
+    consumer:
+      group-id: me
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+  datasource:
+    password: 1234
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+groupId: me
+
+---
+server:
+  port: 8082
+spring:
+  config:
+    activate:
+      on-profile: dev
+  kafka:
+    consumer:
+      group-id: me
+    bootstrapAddress: localhost:29092
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+  datasource:
+    password: 1234
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+groupId: me
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  kafka:
+    consumer:
+      group-id: me
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+groupId: me
+
+
