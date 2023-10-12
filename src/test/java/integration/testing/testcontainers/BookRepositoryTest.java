@@ -1,7 +1,7 @@
 package integration.testing.testcontainers;
 
 
-import integration.testing.testcontainers.config.ContainersEnvironment;
+
 import integration.testing.testcontainers.models.Book;
 import integration.testing.testcontainers.repo.BookRepo;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ActiveProfiles("test")
 @SpringBootTest(classes = TestcontainersApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BookRepositoryTest extends ContainersEnvironment{
+public class BookRepositoryTest{
 
     @Autowired
     private BookRepo bookRepo;

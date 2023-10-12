@@ -1,73 +1,62 @@
 server:
   port: 8081
 spring:
+  datasource:
+    password: 1234
+    url: jdbc:singlestore://localhost:3307/abdullah?createDatabaseIfNotExist=true
+    username: root
+    driver-class-name: com.singlestore.jdbc.Driver
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQLDialect
+      hibernate.format_sql: true
+    show-sql: true
   profiles:
     active: dev
   application:
     name: test-containers
   kafka:
+    bootstrapAddress: localhost:29092
     consumer:
       group-id: me
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-    show-sql: false
-  datasource:
-    password: 1234
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
 groupId: me
+
 
 ---
 server:
   port: 8082
 spring:
+  docker:
+    compose:
+      enabled: true
+      file: docker-compose-singlestore.yml
+      stop:
+        command: stop
+        timeout: 0
+  jpa:
+    hibernate:
+      ddl-auto: update
   config:
     activate:
       on-profile: dev
-  kafka:
-    consumer:
-      group-id: me
-    bootstrapAddress: localhost:29092
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-    show-sql: false
-  datasource:
-    password: 1234
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-groupId: me
-
-
+    groupId: me
 ---
 spring:
+  docker:
+    compose:
+      skip:
+        in-tests: false
+      enabled: true
+      file: docker-compose-singlestore-test.yml
+      stop:
+        command: down
+        timeout: 0
   config:
     activate:
       on-profile: test
-  kafka:
-    consumer:
-      group-id: me
   jpa:
     hibernate:
       ddl-auto: create-drop
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-    show-sql: false
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-groupId: me
+
 
 
