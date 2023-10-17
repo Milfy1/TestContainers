@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 8086
 spring:
   datasource:
     password: 1234
-    url: jdbc:singlestore://localhost:3307/abdullah?createDatabaseIfNotExist=true
+    url: jdbc:singlestore://localhost:3307/sa?createDatabaseIfNotExist=true
     username: root
     driver-class-name: com.singlestore.jdbc.Driver
   jpa:
@@ -35,7 +35,7 @@ spring:
         timeout: 0
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   config:
     activate:
       on-profile: dev
@@ -56,7 +56,7 @@ spring:
       on-profile: test
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
 
 
 

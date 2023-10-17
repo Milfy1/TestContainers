@@ -14,7 +14,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "book_seq")
     @Column(name = "id")
     private Long id;
-    @Column(unique = true,length = 100)
+    @Column(length = 100)
     private String name;
 
     private Integer pages;

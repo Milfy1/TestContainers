@@ -6,7 +6,7 @@ services:
     image: ghcr.io/singlestore-labs/singlestoredb-dev
     ports:
       - 3307:3306
-      - 8080:8080
+      - 8086:8080
       - 9000:9000
     environment:
       ROOT_PASSWORD: 1234
@@ -26,6 +26,7 @@ services:
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: cp-kafka-container-dev
+    restart: always
     depends_on:
       - zookeeper
     ports:
